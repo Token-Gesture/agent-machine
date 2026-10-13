@@ -1,0 +1,31 @@
+# One machine for your CTO's agents, from one button.
+#
+# One is enough. The platform decides, job by job, whether a machine writes a change or reviews
+# one, so there is no coding machine and review machine to pair up. A second machine only means
+# two jobs at once.
+#
+# Deploy: https://render.com/deploy?repo=https://github.com/Token-Gesture/agent-machine
+
+services:
+  - name: tg-agent-machine
+    type: worker
+    runtime: image
+    image:
+      url: ghcr.io/token-gesture/agent-machine:1
+    plan: starter
+    envVars:
+      # Render asks for this when you create the blueprint. Make it in Token Gesture under
+      # Technology, Settings, Agents: Change, Your own machines, Make a set-up code. It is spent
+      # once, on first boot, and never needed again.
+      - key: TG_CODE
+        sync: false
+      - key: TG_STATE_DIR
+        value: /state
+    # Not optional. Render wipes the filesystem on every restart and every deploy. The machine
+    # spends its set-up code on first boot and keeps the credential it gets for it; a code cannot
+    # be spent twice. Without a disk, the first redeploy leaves a machine asking for a code nobody
+    # can give it again.
+    disk:
+      name: tg-agent-machine-state
+      mountPath: /state
+      sizeGB: 1
