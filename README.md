@@ -8,9 +8,6 @@ back. This is the program for a machine you run yourself: a Mac Mini under a des
 button on a platform. It is the same runner Token Gesture's own machines will run, so a card is done
 the same way wherever it is done.
 
-> **The first release is on its way.** Until `ghcr.io/token-gesture/agent-machine:1` is published,
-> the commands below will not pull. This note goes when it is out.
-
 **It connects outward only.** No inbound port, no VPN, no static address. A machine under a desk, a
 cloud VM and a platform worker all work the same way, behind NAT.
 
